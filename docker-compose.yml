@@ -1,0 +1,27 @@
+version: '3'
+
+
+services:
+  web:
+    container_name: googlepaa
+    build: .
+    ports:
+      - "8000:8000"
+    depends_on:
+    - db
+  proxy:
+    container_name: nginx
+    build: proxy
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+    - web
+  db:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'googlepaa'
+      MYSQL_USER: 'googlepaa'
+      MYSQL_PASSWORD: '%%Dhaka123%%'
+      MYSQL_ROOT_PASSWORD: '%%Dhaka123%%'
